@@ -157,7 +157,7 @@ ReCAPTCHA.propTypes = {
     tabindex: PropTypes.number,
     onExpired: PropTypes.func,
     onErrored: PropTypes.func,
-    size: PropTypes.oneOf(["compact", "normal", "invisible"]),
+    size: PropTypes.oneOf(["compact", "normal", "invisible", "flexible"]),
     stoken: PropTypes.string,
     hl: PropTypes.string,
     badge: PropTypes.oneOf(["bottomright", "bottomleft", "inline"]),

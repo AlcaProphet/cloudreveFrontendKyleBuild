@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { FormControl } from "@material-ui/core";
-import ReCaptcha from "../component/Login/ReCaptcha";
+import { ReCaptcha, Turnstile } from "../component/Login/ReCaptcha";
 import { defaultValidate, useStyle } from "./useCaptcha";
 
 const Recaptcha = ({ captchaRef, setLoading }) => {
@@ -22,16 +22,27 @@ const Recaptcha = ({ captchaRef, setLoading }) => {
     return (
         <div className={classes.captchaContainer}>
             <FormControl margin="normal" required fullWidth>
-                <div>
-                    <ReCaptcha
-                        style={{
-                            display: "inline-block",
-                        }}
-                        sitekey={reCaptchaKey}
-                        onChange={(value) => setCaptcha(value)}
-                        id="captcha"
-                        name="captcha"
-                    />
+                            <div style={{textAlign: "center"}}>
+                    {reCaptchaKey.startsWith("turnstile:") ? (
+                        <Turnstile
+                            sitekey={reCaptchaKey.replace(/^turnstile:/, "")}
+                            onChange={(value) => setCaptcha(value)}
+                            id="captcha"
+                            name="captcha"
+                            size="flexible"
+                            theme={(window.matchMedia && window.matchMedia("(prefers-color-scheme:dark)").matches) ? "dark" : "light"}
+                        />
+                    ) : (
+                        <ReCaptcha
+                            style={{
+                                display: "inline-block",
+                            }}
+                            sitekey={reCaptchaKey}
+                            onChange={(value) => setCaptcha(value)}
+                            id="captcha"
+                            name="captcha"
+                        />
+                    )}
                 </div>
             </FormControl>{" "}
         </div>

@@ -4,12 +4,12 @@ import makeAsyncScriptLoader from "react-async-script";
 const callbackName = "onloadcallback";
 const globalName = "grecaptcha";
 
-function getURL() {
-    const hostname = "recaptcha.net";
-    return `https://${hostname}/recaptcha/api.js?onload=${callbackName}&render=explicit`;
-}
+export const ReCaptcha = makeAsyncScriptLoader(`https://recaptcha.net/recaptcha/api.js?onload=${callbackName}&render=explicit`, {
+        callbackName,
+        globalName,
+    })(ReCAPTCHA);
 
-export default makeAsyncScriptLoader(getURL, {
+export const Turnstile = makeAsyncScriptLoader(`https://challenges.cloudflare.com/turnstile/v0/api.js?onload=${callbackName}&render=explicit&compat=recaptcha`, {
     callbackName,
     globalName,
 })(ReCAPTCHA);
